@@ -1,0 +1,15 @@
+
+
+.reg-frame {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+}
+
+.reg-frame > div {
+    /* background-color: blue; */
+    min-width: 75%;
+    margin: 5px;
+    margin-top: 10px;
+}

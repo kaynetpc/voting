@@ -1,0 +1,121 @@
+
+
+.input-field {
+    display: flex;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    align-items: center;
+    justify-content: center;
+    margin: 5px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.input-field > input {
+    width: 60%; 
+    border: none;
+    height: inherit;
+    border-bottom: 2px solid #8f206e7a;
+    background-color: #eb8fd01a;
+    border-radius: 4.5px;
+    outline: none;
+}
+
+.input-field > span {
+    width: 35%; 
+    background-color: #eb8fd01a;
+    line-height: auto;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.input-field-eye-toggle {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+    color: var(--mainColor);
+}
+
+.input-field-eye-toggle:hover {
+    color: var(--mainColorB);
+}
+
+
+.input-field-radio-select {
+    /* background-color: red; */
+    display: flex;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    text-align: left;
+    margin: 5px;
+    margin-bottom: 10px;
+
+}
+
+.input-field-radio-select > span {
+    width: 35%; 
+    background-color: #eb8fd01a;
+    line-height: auto;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.input-field-radio-select-child-wrapper {
+    display: flex;
+    width: 60%; 
+    outline: none;
+    border: none;
+    height: inherit;
+    justify-content: space-evenly;
+    border-bottom: 2px solid #8f206e7a;
+    background-color: #eb8fd01a;
+    border-radius: 4.5px;
+    padding-left: 5px;
+}
+
+.input-field-radio-select-child:first-child{
+    border-right: 2px solid #8f206e7a;
+}
+
+.input-field-radio-select-child > input   {
+    cursor: pointer;
+}
+
+.input-field-radio-select-child   {
+    width: 100%;
+    margin: 2px;
+    transition: all 1s;
+}
+
+.input-field-radio-select-child:hover  {
+    opacity: .5;
+    transition: all 1s;
+}
+.input-field-radio-select-child > label   {
+    margin-right: 5px;
+}
+
+
+.input-label {
+    margin-right: 2px;
+    background-color: red;
+}
+
+
+.input-field-select {
+    background-color: inherit;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.input-field-select> option {
+    background-color: inherit;
+    border-radius: inherit;
+}

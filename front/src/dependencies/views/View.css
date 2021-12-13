@@ -1,0 +1,69 @@
+
+/* UIWindow */
+
+.ui-window{
+    position: absolute;
+    top: 0px;
+    transform:translateY(100px);
+    will-change: opacity, transform;
+    transition: .5s;
+    background-color: white;
+    width: 100%;
+    left: 0px;
+    height: 100%;
+    z-index: 10;
+    overflow: auto;
+}
+
+.ui-window-hide{
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ui-window-show{
+    opacity: 1;
+    pointer-events: auto;
+    transform:translateY(0px);
+}
+
+.ui-window .ui-window-close-wrapper{
+
+    padding:10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--headerColor);
+  
+    
+}
+
+.ui-window .ui-window-close-wrapper > h3{
+    margin: 0px;
+    font-weight: lighter;
+    color:#333333;
+}
+
+.ui-window .ui-window-close-wrapper > span{
+    font-size: x-large;
+    cursor: pointer;
+}
+
+.ui-window .ui-window-body{
+    padding:20px;
+    height: max-content;
+}
+
+/* UI RADIO */
+
+.ui-radio, .ui-checkbox{
+    width:auto !important;
+    padding: 0px !important;
+    margin: 0px !important;
+    height: auto !important;
+}
+
+.ui-radchk-label{
+    display: inline !important;
+    margin-left: 5px;
+    margin-right: 10px;
+}

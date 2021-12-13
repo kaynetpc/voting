@@ -1,0 +1,35 @@
+.table {
+    width: 100%;
+    background-color:  white;
+}
+
+.table > thead > tr > th {
+    line-height: 30px;
+    background-color:   #f2f3f4;
+    border-radius: 3px;
+}
+
+
+.table > tbody > tr > td {
+    height: auto;
+    background-color:    #f4f6f6 ;
+    padding: 5px;
+    border-radius: 2px;
+    width: auto;
+
+}
+
+.table > tbody > tr > td > select {
+    width: 100%;
+    outline: none;
+    border: none;
+    text-align: center;
+    background-color: transparent;
+    transition: ease-in-out .5s;
+}
+
+.table > tbody > tr > td > select:hover {
+    /* letter-spacing: 2px; */
+    width: calc(100% - 10px);
+    transition: ease-in-out .5s;
+}
