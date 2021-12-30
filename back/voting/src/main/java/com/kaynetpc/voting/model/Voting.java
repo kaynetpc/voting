@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 /**
  * Voting
@@ -22,9 +21,9 @@ public class Voting {
     private long id;
 
     private String candidateId;
-    
-    @OneToOne
-    private Posts post;
+
+    private long postId;
+
     private String electionName;
     
     @OneToMany
@@ -33,9 +32,12 @@ public class Voting {
 
     
 
-    public Voting(String candidateId, Posts post, String electionName, List<Votes> votes) {
+    public Voting() {
+    }
+
+    public Voting(String candidateId, long postId, String electionName, List<Votes> votes) {
         this.candidateId = candidateId;
-        this.post = post;
+        this.postId = postId;
         this.electionName = electionName;
         this.votes = votes;
     }
@@ -56,12 +58,13 @@ public class Voting {
         this.candidateId = candidateId;
     }
 
-    public Posts getPost() {
-        return post;
+    
+    public long getPostId() {
+        return postId;
     }
 
-    public void setPost(Posts post) {
-        this.post = post;
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 
     public List<Votes> getVotes() {

@@ -23,6 +23,16 @@ public class Votes {
     
     
     
+    
+
+    public Votes(long id, String votersId, String candidateId, String electionName) {
+        this.id = id;
+        this.votersId = votersId;
+        this.candidateId = candidateId;
+        this.electionName = electionName;
+    }
+
+
 
     public Votes(String votersId, String candidateId, String electionName) {
         this.votersId = votersId;
@@ -41,15 +51,19 @@ public class Votes {
         return id;
     }
 
+
+
     public void setId(long id) {
         this.id = id;
     }
 
 
-    
+
     public String getVotersId() {
         return votersId;
     }
+
+
 
     public void setVotersId(String votersId) {
         this.votersId = votersId;
@@ -78,6 +92,8 @@ public class Votes {
     public void setElectionName(String electionName) {
         this.electionName = electionName;
     }
+
+
 
 
     

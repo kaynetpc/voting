@@ -4,7 +4,7 @@ import { JHttp } from '../../../dependencies/js/Jpc';
 import { KNT } from '../../../dependencies/js/knt';
 import { baseUrl, MSG } from '../../service/Constant';
 
-function CreatElection() {
+function CreateElectionLevel() {
     
 
 
@@ -48,8 +48,6 @@ function CreatElection() {
     ];
 
     const submit = (response) => {
-        console.log(response)
-
         const data = [response];
 
         KNT.validateField.validate(data, (field) => alert(MSG.fieldRequiredMSG(field)),  () => {
@@ -68,4 +66,4 @@ function CreatElection() {
     )
 }
 
-export default CreatElection
+export default CreateElectionLevel

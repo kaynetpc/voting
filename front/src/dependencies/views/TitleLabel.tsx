@@ -12,7 +12,7 @@ export const TitleLabel = ({title = "", iconRight}: Props) => {
     return (
         <div className="title-label">
             <span className="label-text">{title}</span>
-            {/* {iconRight && <span className="label-right-icon">{iconRight}</span>} */}
+            {iconRight && <span className="label-right-icon">{iconRight}</span>}
         </div>
     )
 }

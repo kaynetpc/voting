@@ -10,6 +10,7 @@ function ProfileUpdate({userId}) {
     
 
     useEffect(() => {
+        console.log("object ",userId);
         JHttp.get(`${baseUrl}/user/profile?userId=${userId}`, (data) => {
             if(data !== null && typeof data !== String){
                 setState(data);

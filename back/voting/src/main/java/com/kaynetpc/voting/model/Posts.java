@@ -21,7 +21,7 @@ public class Posts {
     private String objective; // 
     private String status; // 
     private Boolean active = true; // 
-    private Boolean approved; // 
+    private Boolean approved = true; // 
 
     
     public Posts() {

@@ -1,7 +1,11 @@
 package com.kaynetpc.voting.user.controller;
 
+import java.util.List;
+
 import com.kaynetpc.voting.login.service.LoginResponse;
 import com.kaynetpc.voting.model.User;
+import com.kaynetpc.voting.model.UserTypes;
+import com.kaynetpc.voting.user.service.UserResponse;
 import com.kaynetpc.voting.user.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +29,28 @@ public class ConUser {
         return service.createNewUser(entity);
     }
 
-    /**Create user URL */
-    @GetMapping(value="profile")
+    /**Get user profile URL */
+    @GetMapping(value="/profile")
     public Object userProfile(@RequestParam String userId) {        
         return service.getUserProfile(userId);
     }
+
+    @GetMapping(value="/get/list")
+    public List<UserResponse> getUserList() {
+        return service.getUsersList();
+    }
+
+
+    @PostMapping(value = "/create/type")
+    public String createUserTypes(@RequestBody List<UserTypes> e){
+        return service.createUserTypes(e);
+    }
+
+    @GetMapping(value = "/list/type")
+    public List<UserTypes> getUserTypes(){
+        return service.getUserTypes();
+    }
+    
 
     
     

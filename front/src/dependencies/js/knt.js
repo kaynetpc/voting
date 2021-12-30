@@ -1354,20 +1354,20 @@ export const KNT = {
           return res;
       }
     },
-    makeId: function (prevData, length) {
+    makeId: function (prevData, length, character= "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789") {
       let previous = prevData;
       var result = '';
-      var characters =
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-      let charactersLength = characters.length;
+      // var character =
+      //   'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let charactersLength = character.length;
       for (let i = 0; i < length; i++) {
-        result += characters.charAt(
+        result += character.charAt(
           Math.floor(Math.random() * charactersLength)
         );
       }
       if (KNT.array.include(result, previous)) {
         for (let j = 0; j < length; j++) {
-          result += characters.charAt(
+          result += character.charAt(
             Math.floor(Math.random() * charactersLength)
           );
         }

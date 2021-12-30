@@ -5,11 +5,17 @@
     display: flex;
     justify-content: center;
     height: 100vh;
+    border-radius: 12px;
+    border: 18px solid rgba(173, 163, 163, 0.089);
+    
+    background-color: #DFC5FF;
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Cpolygon fill='%23cc6c94' points='957 450 539 900 1396 900'/%3E%3Cpolygon fill='%237b918e' points='957 450 872.9 900 1396 900'/%3E%3Cpolygon fill='%23ae7fb9' points='-60 900 398 662 816 900'/%3E%3Cpolygon fill='%23859c98' points='337 900 398 662 816 900'/%3E%3Cpolygon fill='%238691c9' points='1203 546 1552 900 876 900'/%3E%3Cpolygon fill='%2390a8a3' points='1203 546 1552 900 1162 900'/%3E%3Cpolygon fill='%236b9fc4' points='641 695 886 900 367 900'/%3E%3Cpolygon fill='%239bb3ae' points='587 900 641 695 886 900'/%3E%3Cpolygon fill='%236ea7b4' points='1710 900 1401 632 1096 900'/%3E%3Cpolygon fill='%23a6bfb8' points='1710 900 1401 632 1365 900'/%3E%3Cpolygon fill='%2384aaa5' points='1210 900 971 687 725 900'/%3E%3Cpolygon fill='%23b1cbc3' points='943 900 1210 900 971 687'/%3E%3C/svg%3E");
+background-attachment: fixed;
+background-size: cover;
 }
 
 .reg-frame > div {
-    /* background-color: blue; */
-    min-width: 75%;
+    min-width: 80%;
     margin: 5px;
     margin-top: 10px;
 }

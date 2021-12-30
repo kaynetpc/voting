@@ -3,7 +3,6 @@ package com.kaynetpc.voting.voting.controller;
 import java.util.List;
 
 import com.kaynetpc.voting.model.Voting;
-import com.kaynetpc.voting.voting.service.CostumeVoting;
 import com.kaynetpc.voting.voting.service.VoteRequest;
 import com.kaynetpc.voting.voting.service.VotingResponseView;
 import com.kaynetpc.voting.voting.service.VotingService;
@@ -33,14 +32,14 @@ public class ConVoting {
     }
 
     @GetMapping(value = "/list")
-    public VotingResponseView  getVotingList(@RequestParam String electionName){
-        return service.getVotingList(electionName);
+    public List<VotingResponseView>  getVotingList(){
+        return service.getVotingList();
     }
 
-    @GetMapping(value = "/detail/list")
-    public List<CostumeVoting>  getVotingListDetail(@RequestParam String electionName){
-        return service.getVotingListDetail(electionName);
-    }
+    // @GetMapping(value = "/detail/list")
+    // public List<CostumeVoting>  getVotingListDetail(@RequestParam String electionName){
+    //     return service.getVotingListDetail(electionName);
+    // }
 
 
 }

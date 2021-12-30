@@ -1,6 +1,12 @@
 package com.kaynetpc.voting.login.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import com.kaynetpc.voting.model.Role;
 import com.kaynetpc.voting.model.User;
+import com.kaynetpc.voting.model.UserRoles;
 
 public class LoginResponse {
     private String username;
@@ -13,9 +19,10 @@ public class LoginResponse {
     private String dateOfBirth;
     private int status = 0; /**1 connected, 2, blocked , 0 not exist */
     private String message = "";
+    private List<Integer> rolesId = new ArrayList<>();
 
     
-    public LoginResponse(User user, String date, int status, String message) {
+    public LoginResponse(User user, String date, int status, String message, List<UserRoles> userRoles) {
         this.username = user.getUserId();
         this.gender = user.getGender();
         this.image = user.getImage();
@@ -26,6 +33,31 @@ public class LoginResponse {
         this.dateOfBirth = user.getDateOfBirth();
         this.status = status;
         this.message = message;
+        this.rolesId = extractRoleIds(userRoles, user.getUserType());
+    }
+
+    private List<Integer> extractRoleIds(List<UserRoles> list, String Type){
+        List<Integer> res = new ArrayList<>();
+        Optional<UserRoles> ur = userRoles(list, Type);
+
+        if(ur.isPresent()){
+            List<Role> roleList = ur.get().getRoles();
+            for(Role e : roleList){
+                res.add(e.getId());
+            }
+        }
+        return res;
+    }
+    
+
+    Optional<UserRoles> userRoles(List<UserRoles> list, String type){
+        Optional<UserRoles> res = Optional.empty();
+        for(UserRoles e : list){
+            if(e.getType().equalsIgnoreCase(type)){
+                return res = Optional.of(e);
+            }
+        }
+        return res;
     }
 
 
@@ -151,6 +183,14 @@ public class LoginResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public List<Integer> getRolesId() {
+        return rolesId;
+    }
+
+    public void setRolesId(List<Integer> rolesId) {
+        this.rolesId = rolesId;
     }
 
     

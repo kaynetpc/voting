@@ -17,6 +17,7 @@ public class Election {
     private String dateCreated;
     private Boolean reuseable;
     private String level; //category level it belong
+    private long postId; //category level it belong
     private Boolean active = true;
     private String startDate;
     private String endDate;
@@ -27,7 +28,7 @@ public class Election {
    
     
     public Election(String name, String description, String year, String dateCreated, Boolean reuseable,
-            String level, Boolean active, String startDate, String endDate) {
+            String level, Boolean active, String startDate, String endDate, long postId) {
         this.name = name;
         this.description = description;
         this.year = year;
@@ -37,6 +38,7 @@ public class Election {
         this.active = active;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.postId = postId;
     }
 
 
@@ -111,6 +113,16 @@ public class Election {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+
+    public long getPostId() {
+        return postId;
+    }
+
+
+    public void setPostId(long postId) {
+        this.postId = postId;
     }
 
     

@@ -20,19 +20,31 @@ const user: IUserData = useSelector<IReducersState>(state => state.userData) as 
 const [posts, setPosts] = useState([]);
 
 
-const [data, setData] = useState([]);
+const [levels, setLevels] = useState([]);
+
+const [election, setElection] = useState([]);
 
 
     
 useEffect(() => {
     const getList = () => {
-        JHttp.get(`${baseUrl}/cat/get/list`, (data: any) => {
-            console.log(data);
-            setData(data)
+        JHttp.get(`${baseUrl}/election/get/list`, (data: any) => {
+            setElection(data)
         }, (err: any) => console.log(err))
     }
     getList();
 
+}, []);
+
+    
+
+useEffect(() => {
+    const getListLevel = () => {
+        JHttp.get(`${baseUrl}/cat/get/list`, (data: any) => {
+            setLevels(data)
+        }, (err: any) => console.log(err))
+    };
+    getListLevel();
 }, []);
 
 
@@ -42,9 +54,8 @@ const handleChange = (e: any) => {
     console.log(name, value);
 
     if(name === "level"){
-        // console.log(data);
-        const posts = KNT.array.extractByKeyValue(data, "name", value)[0]["posts"];
-        setPosts(posts)
+        const main = KNT.array.extractByKeyValue(levels, "name", value)[0]
+        main && main["posts"] && setPosts(main["posts"])
     }
 }
 
@@ -52,9 +63,20 @@ const handleChange = (e: any) => {
 
 const schema = [
     {
+        name: "name",
+        type: "select",
+        values: election,
+        control: {
+            type: "select",
+            renderKey: "name",
+            valueKey: "name",
+            label: "Election",
+        }
+    },
+    {
         name: "level",
         type: "select",
-        values: data,
+        values: levels,
         control: {
             type: "select",
             renderKey: "name",
@@ -63,14 +85,15 @@ const schema = [
         }
     },
     {
-        name: "level",
+        name: "postId",
         type: "select",
-        values: ["Mr", "Mrs", "Miss"],
+        values: posts,
         control: {
             type: "select",
             renderKey: "name",
-            valueKey: "name",
-            label: "Election Level",
+            valueKey: "id",
+            label: "Post",
+            placeholder: "Gender"
         }
     },
     {
@@ -93,18 +116,6 @@ const schema = [
             type: "text",
             label: "Last Name",
             placeholder: "Enter Last Name"
-        }
-    },
-    {
-        name: "postId",
-        type: "select",
-        values: posts,
-        control: {
-            type: "select",
-            renderKey: "name",
-            valueKey: "id",
-            label: "Post",
-            placeholder: "Gender"
         }
     },
     {

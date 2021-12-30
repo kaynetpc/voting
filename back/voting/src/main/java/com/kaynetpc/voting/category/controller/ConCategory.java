@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,6 +33,11 @@ public class ConCategory {
     @GetMapping(value = "/get/list")
     public List<ElectionLevelHierarchy> getPostHierarchy(){
         return service.getPostHierarchy();
+    }
+
+    @GetMapping(value = "/get")
+    public ElectionLevelHierarchy getElectionLevels(@RequestParam String level){
+        return service.getPostElectionLevel(level);
     }
 
     @GetMapping(value = "/name/create")

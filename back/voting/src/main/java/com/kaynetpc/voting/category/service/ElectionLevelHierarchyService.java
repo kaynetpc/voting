@@ -176,6 +176,10 @@ public class ElectionLevelHierarchyService {
 
 
 
+    public ElectionLevelHierarchy getPostElectionLevel(String level){
+        return repoPostHierarchy.findByName(level).get();
+    }
+
     public List<ElectionLevelHierarchy> getPostHierarchy(){
         return repoPostHierarchy.findAll();
     }

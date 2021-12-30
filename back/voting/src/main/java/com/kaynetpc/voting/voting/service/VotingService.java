@@ -39,9 +39,9 @@ public class VotingService {
         List<Votes> votes = new ArrayList<>();
         for(Voting each  : entities){
             List<Votes> votesBox = new ArrayList<>();
-            if(!isVotingExist(list, each.getCandidateId()).isPresent()){
+            if(!isVotingExist(list, each.getCandidateId(), each.getElectionName()).isPresent()){
                 each.getVotes().forEach(vt -> {
-                    if(!isVotesExist(previousVotes, vt).isPresent()){
+                    if(!isVotesExist(previousVotes, vt.getVotersId(), vt.getCandidateId(), vt.getElectionName()).isPresent()){
                         votesBox.add(vt);
                         votes.add(vt);
                     }
@@ -65,7 +65,8 @@ public class VotingService {
     }
 
 
-    public String makeVote(VoteRequest voteRequest){
+    /** */
+    public String makeVoteBBBB(VoteRequest voteRequest){
 
         Optional<User> user = repoUser.findByUserId(voteRequest.getUserId());
         Optional<Posts> post = repoPosts.findById(voteRequest.getPostId());
@@ -81,9 +82,9 @@ public class VotingService {
             /**is election active */
             Optional<Election> election = repoElection.findByName(voteRequest.getElectionName());
 
-            
+            // help.isDateWithing(election.get().getStartDate(), election.get().getEndDate(), help.getTodaysDate())
 
-            if(election.isPresent() && election.get().getActive() && help.isDateWithing(election.get().getStartDate(), election.get().getEndDate(), help.getTodaysDate())){
+            if(election.isPresent() && election.get().getActive()){
                 
                             /**Construct vote */
                             Votes vote = new Votes(user.get().getUserId(), voting.get().getCandidateId(), voting.get().getElectionName());
@@ -91,7 +92,7 @@ public class VotingService {
                             /**Update Vote record */
                             List<Votes> previousVote = voting.get().getVotes();
                             /**Check if user already vote */
-                            if(!isVotesExist(allVotes, vote).isPresent()){
+                            if(!isVotesExist(allVotes, voteRequest.getUserId(), voteRequest.getCandidateId(), voteRequest.getElectionName()).isPresent()){
                                 /**append vote for candidate */
                                 previousVote.add(vote);
                             }
@@ -120,38 +121,107 @@ public class VotingService {
     }
 
 
+    public String makeVote(VoteRequest voteRequest){
+        
+        // Optional<User> user = repoUser.findByUserId(voteRequest.getUserId());
+        // Optional<User> candidate = repoUser.findByUserId(voteRequest.getCandidateId());
+        // Optional<Posts> post = repoPosts.findById(voteRequest.getPostId());
+
+        List<Votes> allVotes = repoVotes.findAll();
+        List<Votes> newVotes = new ArrayList<>();
+
+        List<Voting> allVoting = repoVoting.findAll();
+        List<Voting> newVoting = new ArrayList<>();
+
+
+        Optional<Election> election = repoElection.findByName(voteRequest.getElectionName());
+
+        if(election.isPresent() ){
+            /**check if exist */
+            Optional<Voting> voting = isVotingExist(allVoting, voteRequest.getCandidateId(), voteRequest.getElectionName());
+            if(!voting.isPresent()){
+                List<Votes> blank_votes = new ArrayList<>();
+    
+                /**Check if exist */
+                Votes votes = new Votes(voteRequest.getUserId(), voteRequest.getCandidateId(), voteRequest.getElectionName());
+                if(!isVotesExist(allVotes, voteRequest.getUserId(), voteRequest.getCandidateId(), voteRequest.getElectionName()).isPresent()){
+                    blank_votes.add(votes);
+                    newVotes.add(votes);
+                }
+    
+                Voting voting2 = new Voting(voteRequest.getCandidateId(), voteRequest.getPostId(), voteRequest.getElectionName(), blank_votes);
+                newVoting.add(voting2);
+    
+            } else {
+    
+                List<Votes> blank_votes = voting.get().getVotes();
+                /**Check if exist */
+                Votes votes = new Votes(voteRequest.getUserId(), voteRequest.getCandidateId(), voteRequest.getElectionName());
+
+                if(!isVotesExist(allVotes, voteRequest.getUserId(), voteRequest.getCandidateId(), voteRequest.getElectionName()).isPresent()){
+                    blank_votes.add(votes);
+                    newVotes.add(votes);
+                }
+                voting.get().setVotes(blank_votes);
+                newVoting.add(voting.get());
+            }
+
+
+            
+            try {
+                repoVotes.saveAll(newVotes);
+                repoVoting.saveAll(newVoting);
+                return "Saved";
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "Failed!";
+            }
+        }
+        System.out.print("______________GOT HERE 3__________________________________******");
+
+        return "Election not found";
+
+    }
 
 
     /**Get Voting List */
-    public VotingResponseView getVotingList(String electionName){
-        List<Voting> voting = repoVoting.findByElectionName(electionName);
-        long totalVotes = 0;
+    public List<VotingResponseView> getVotingList(){
+        List<Voting> voting = repoVoting.findAll();
+        List<VotingResponseView> res = new ArrayList<>();
+        List<User> users = repoUser.findAll();
+        List<Posts> posts = repoPosts.findAll();
+        
+
         for(Voting e : voting){
-            totalVotes += e.getVotes().size();
+            User user = getUserByUserId(users, e.getCandidateId()).get();
+            long postId = e.getPostId();
+            Posts post = getPostById(posts, postId).get();
+            VotingResponseView voteView = new VotingResponseView(e, post.getName(), user);
+            res.add(voteView);
         }
-        return new VotingResponseView(voting, voting.size(), totalVotes);
+        return res;
     }
 
     /**Get Voting Full Details */
-    public List<CostumeVoting> getVotingListDetail(String electionName){
-        List<CostumeVoting> res = new ArrayList<>();
+    // public List<CostumeVoting> getVotingListDetail(String electionName){
+    //     List<CostumeVoting> res = new ArrayList<>();
 
-        List<Voting> voting = repoVoting.findByElectionName(electionName);
-        List<User> users = repoUser.findAll();
-        List<Election> electionList = repoElection.findAll();
+    //     List<Voting> voting = repoVoting.findByElectionName(electionName);
+    //     List<User> users = repoUser.findAll();
+    //     List<Election> electionList = repoElection.findAll();
 
-        for(Voting each : voting){
-            User user = getUserByUserId(users, each.getCandidateId()).get();
-            long totalVote = each.getVotes().size();
-            Election electionType = getElectionTypeByName(electionList, each.getElectionName()).get();
+    //     for(Voting each : voting){
+    //         User user = getUserByUserId(users, each.getCandidateId()).get();
+    //         long totalVote = each.getVotes().size();
+    //         Election electionType = getElectionTypeByName(electionList, each.getElectionName()).get();
             
 
-            res.add(new CostumeVoting(user, each.getPost(), electionType, totalVote, each.getVotes()));
+    //         res.add(new CostumeVoting(user, each.getPostId(), electionType, totalVote, each.getVotes()));
 
-        }
+    //     }
         
-        return res;
-    }
+    //     return res;
+    // }
 
 
 
@@ -184,20 +254,30 @@ public class VotingService {
         return res;
     }
 
-    Optional<Votes> isVotesExist(List<Votes> list, Votes vote){
-        Optional<Votes> res = Optional.empty();
-        for(Votes e: list){
-            if(e.getVotersId().equalsIgnoreCase(vote.getVotersId()) && e.getElectionName().equalsIgnoreCase(vote.getElectionName())){
+    Optional<Posts> getPostById(List<Posts> list,long postId){
+        Optional<Posts> res = Optional.empty();
+        for(Posts e : list){
+            if(e.getId() == postId){
                 return res = Optional.of(e);
             }
         }
         return res;
     }
 
-    Optional<Voting> isVotingExist(List<Voting> list, String candidateId){
+    Optional<Votes> isVotesExist(List<Votes> list, String votersId, String candidateId, String electionName){
+        Optional<Votes> res = Optional.empty();
+        for(Votes e: list){
+            if(e.getVotersId().equalsIgnoreCase(votersId) && e.getCandidateId().equalsIgnoreCase(candidateId) && e.getElectionName().equalsIgnoreCase(electionName)){
+                return res = Optional.of(e);
+            }
+        }
+        return res;
+    }
+
+    Optional<Voting> isVotingExist(List<Voting> list, String candidateId, String electionName){
         Optional<Voting> res = Optional.empty();
         for(Voting e: list){
-            if(e.getCandidateId().equalsIgnoreCase(candidateId)){
+            if(e.getCandidateId().equalsIgnoreCase(candidateId) && e.getElectionName().equalsIgnoreCase(electionName)){
                 return res = Optional.of(e);
             }
         }

@@ -8,7 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+
+import com.kaynetpc.voting.election.service.ContestantsRequest;
 
 
 @Entity
@@ -41,6 +42,7 @@ public class Contestants {
     private String objective;
 
 
+
     
 
  
@@ -51,7 +53,7 @@ public class Contestants {
 
     public Contestants(String name, String level, String date, Posts post, List<Description> descriptions,
             String userId, String title, String firstName, String lastName, String gender, String image, String aim,
-            String objective, long postId) {
+            String objective) {
         this.name = name;
         this.level = level;
         this.date = date;
@@ -65,7 +67,23 @@ public class Contestants {
         this.image = image;
         this.aim = aim;
         this.objective = objective;
-        this.postId = postId;
+    }
+   
+
+    public Contestants(ContestantsRequest contestants) {
+        this.name = contestants.getName();
+        this.level = contestants.getLevel();
+        this.date = contestants.getDate();
+        this.post = contestants.getPost();
+        this.descriptions = contestants.getDescriptions();
+        this.userId = contestants.getUserId();
+        this.title = contestants.getTitle();
+        this.firstName = contestants.getFirstName();
+        this.lastName = contestants.getLastName();
+        this.gender = contestants.getGender();
+        this.image = contestants.getImage();
+        this.aim = contestants.getAim();
+        this.objective = contestants.getObjective();
     }
 
 
@@ -94,11 +112,6 @@ public class Contestants {
         this.image = image;
     }
 
-
-
-
-    @Transient
-    private long postId;
 
 
     public long getId() {
@@ -200,15 +213,6 @@ public class Contestants {
         this.gender = gender;
     }
 
-
-    public long getPostId() {
-        return postId;
-    }
-
-
-    public void setPostId(long postId) {
-        this.postId = postId;
-    }
 
 
     public String getAim() {

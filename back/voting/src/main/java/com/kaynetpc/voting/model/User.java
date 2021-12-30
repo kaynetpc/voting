@@ -25,6 +25,7 @@ public class User {
     private String addressTwo;
     private String dateOfBirth;
     private String image;
+    private String userType;
 
     @Transient
     private String password;
@@ -34,6 +35,7 @@ public class User {
     private List<UserDetails> userDetails;
 
 
+
     
 
     
@@ -41,7 +43,7 @@ public class User {
     
 
     public User(long id, String userId, String firstName, String lastName, String email, String addressOne,
-            String addressTwo, String dateOfBirth, String image, List<UserDetails> userDetails) {
+            String addressTwo, String dateOfBirth, String image, List<UserDetails> userDetails, String userType) {
         this.id = id;
         this.userId = userId;
         this.firstName = firstName;
@@ -52,6 +54,7 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.image = image;
         this.userDetails = userDetails;
+        this.userType = userType;
     }
 
 
@@ -214,6 +217,19 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+
+    public String getUserType() {
+        return userType;
+    }
+
+
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
 
     
 

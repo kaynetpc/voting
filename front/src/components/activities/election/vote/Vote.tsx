@@ -33,15 +33,15 @@ export const Vote = ({candidateInfo, userId}: Props) => {
         if(candidateInfo){
             const data = {
                 candidateId: candidateInfo.userId,
-                posId: candidateInfo.post.id,
+                postId: candidateInfo.post.id,
                 userId: userId,
                 electionName: candidateInfo.name
             };
             if(con(MSG.vote(candidateInfo.lastName))){
-    
+                console.log(data);
                 KNT.validateField.validate([data], (field: string) => alert(MSG.fieldRequiredMSG(field)), () => {
                     JHttp.post(`${baseUrl}/vote/v`, data, (res: string) => alert(res), (err: any) => console.log(err) );
-                })
+                });
             }
 
             

@@ -3,7 +3,10 @@ package com.kaynetpc.voting.election.controller;
 import java.util.List;
 
 import com.kaynetpc.voting.election.service.ContestantService;
+import com.kaynetpc.voting.election.service.ContestantsRequest;
+import com.kaynetpc.voting.election.service.ElectionResponse;
 import com.kaynetpc.voting.model.Contestants;
+import com.kaynetpc.voting.model.Election;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +22,19 @@ public class ConController {
     @Autowired ContestantService service;
 
 
+    @PostMapping(value = "/create")
+    public String createElection(@RequestBody List<Election> entities){
+        return service.addElection(entities);
+    }
+
+    @GetMapping(value = "/get/list")
+    public List<ElectionResponse> getList(){
+        return service.getElectionList();
+    }
+
+
     @PostMapping(value = "/add/req/contestant")
-    public String makeRequest(@RequestBody List<Contestants> entities){
+    public String makeRequest(@RequestBody List<ContestantsRequest> entities){
         return service.addContestant(entities);
     }
 

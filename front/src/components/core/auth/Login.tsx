@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../../../dependencies/button/Button';
 import './Login.css';
 import {TiArrowRightOutline} from 'react-icons/ti'
@@ -7,7 +7,7 @@ import { JHttp } from '../../../dependencies/js/Jpc';
 import { KNT } from '../../../dependencies/js/knt';
 import { Register } from './Register';
 import { useDispatch } from 'react-redux';
-import { baseUrl, connectionStatus } from '../../service/Constant';
+import { adminKey, baseUrl, connectionStatus } from '../../service/Constant';
 // import { IReducersState } from '../../service/Reducers';
 
 interface Props {
@@ -29,26 +29,31 @@ export const Login = ({currentTitle}: Props) => {
     let navigate  = useNavigate();
 
     
-    // useEffect(() => {
-    // }, [current])
-    
     currentTitle && currentTitle(current);
     
     sessionStorage.setItem("username", "");
 
+
+    const fetchAdminDetails = () => {
+        JHttp.get(`${baseUrl}/admin/get/details`, (data: any) => {
+            const temp = JSON.stringify(KNT.array.removeByKeys([data], ["rolesId"])[0]);
+            localStorage.setItem(adminKey, temp)
+        })
+    }
+
+    useEffect(() => {
+        fetchAdminDetails()
+    }, [])
 
 
 
     const authLogin = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e && e.preventDefault();
         const formData = {username: username, passkey: password};
-
-        console.log(formData);
         KNT.validateField.validate([formData], (keys: string) => {alert(KNT.string.titleCase(keys)+ " is Required")}, () => {
             JHttp.post(`${baseUrl}/auth/login`, formData, (response: any) => {
                 if(response !== null){
                     const status = response.status | 0;
-                    console.log(status);
                     if(status === connectionStatus.connected){
                         alert("connected")
 
@@ -80,7 +85,7 @@ export const Login = ({currentTitle}: Props) => {
                 }
                 
             }, (err: any) => {
-                console.log(err);
+                console.error(err);
             });
         } );
 

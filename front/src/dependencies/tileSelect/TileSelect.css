@@ -1,0 +1,39 @@
+.tile-select-parent {
+    background-color: red;
+    
+
+}
+
+.tile-select {
+    padding: 10px;
+    min-width: 90px;
+    line-height: normal;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    transition: ease-in .2s;
+    display: inline-grid;
+    margin: 5px;
+    color: var(--mainColor);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.tile-select-active {
+    background: var(--mainColor);
+    color: #ffffff;
+}
+
+
+.tile-select-active:hover {
+    background: var(--mainColorB);
+    color: #ffffff;
+}
+.tile-select-inactive:hover {
+    color: #ffffff;
+    background: #abb2b9c9 ;
+}
+
+.tile-select-inactive {
+    background: #eb8fd01a ;
+    border: .2px solid var(--mainColor);
+}

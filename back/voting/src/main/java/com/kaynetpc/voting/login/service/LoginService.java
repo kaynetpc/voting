@@ -1,10 +1,14 @@
 package com.kaynetpc.voting.login.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import com.kaynetpc.voting.login.dao.RepoAuthentication;
 import com.kaynetpc.voting.model.Authentication;
 import com.kaynetpc.voting.model.User;
+import com.kaynetpc.voting.model.UserRoles;
+import com.kaynetpc.voting.role.dao.RepoUserRoles;
 import com.kaynetpc.voting.user.dao.RepoUser;
 import com.kaynetpc.voting.utils.Constant;
 import com.kaynetpc.voting.utils.Helper;
@@ -20,6 +24,7 @@ public class LoginService {
 
     @Autowired RepoAuthentication repoAuthentication;
     @Autowired RepoUser repoUser;
+    @Autowired RepoUserRoles repoUserRoles;
 
     Messages MSG = new Messages();
     Helper help = new Helper();
@@ -62,6 +67,7 @@ public class LoginService {
     public LoginResponse autLogin(LoginRequest login) {
 
         LoginResponse res = new LoginResponse();
+        List<UserRoles> userRoles = repoUserRoles.findAll();
         String userId = login.getUsername();
 
         /**Check if is admin */
@@ -70,12 +76,13 @@ public class LoginService {
             if(login.getUsername().equalsIgnoreCase(constant.sysUsername()) && login.getPasskey().equals(constant.sysPassword())){
                 res.setDate(todaysDate);
                 res.setTitle("Mr");
-                res.setLastName("Akinwumi");
-                res.setFirstName("Kayode");
-                res.setUsername("KNT");
+                res.setLastName(constant.sysAdminLastName());
+                res.setFirstName(constant.sysAdminFirstName());
+                res.setUsername(constant.sysUsername());
                 res.setMessage(MSG.loginSuccess());
                 res.setStatus(help.connected);
-                System.out.println("____________LOGIN_______");
+                res.setRolesId(new ArrayList<>());
+                // System.out.println("____________LOGIN_______");
                 return res;
             } else {
                 Optional<User> user = repoUser.findByUserId(userId);
@@ -84,14 +91,14 @@ public class LoginService {
                 if(user.isPresent()){
                     Authentication aut = repoAuthentication.getByUserId(userId).get();
                     if(hashMatch(login.getPasskey(), aut.getPassword())){
-                        res = new LoginResponse(user.get(), todaysDate, help.connected, MSG.loginSuccess());
+                        res = new LoginResponse(user.get(), todaysDate, help.connected, MSG.loginSuccess(), userRoles);
                     } else {
-                        res = new LoginResponse(new User(), todaysDate, help.incorrect, MSG.invalidCredential());
+                        res = new LoginResponse(new User(), todaysDate, help.incorrect, MSG.invalidCredential(), userRoles);
                     }
                 } else {
                     User user2 = new User();
                     user2.setUserId(userId);
-                    res = new LoginResponse(user2 , todaysDate, help.not_exist, MSG.invalidCredential());
+                    res = new LoginResponse(user2 , todaysDate, help.not_exist, MSG.invalidCredential(), userRoles);
                 }
                 return res;
             }

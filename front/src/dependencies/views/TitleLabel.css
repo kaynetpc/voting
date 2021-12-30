@@ -4,6 +4,7 @@
     border-radius: 6px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: px;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -18,5 +19,5 @@
 }
 
 .title-label > .label-right-icon{
-    float: right;
+    margin-right: 5px;
 }

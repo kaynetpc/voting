@@ -34,9 +34,19 @@ export const ContestantList = (props: Props) => {
             setCandidateInfo(data)
         }
     }
+
+    const onCostumeRendering = (val: any, key:any, item: any, rowIndex: number) => {
+        if(key === "level"){
+            
+            return  <p title={item["post"]["title"]}>{`${val} ( ${item["post"]["name"]} )`}</p>
+        }
+
+        return val
+    }
+
     return (
         <div className="container">
-            <Table http={{url: `${baseUrl}/election/get/contestant`, type: "GET" }} onActionOptions={actionOptions()} onActionOptionClick={handleActionOptionClick} />
+            <Table http={{url: `${baseUrl}/election/get/contestant`, type: "GET" }} onCostumeRendering={onCostumeRendering} onActionOptions={actionOptions()} onActionOptionClick={handleActionOptionClick} />
             <UIWindow onShow={show} onClosed={() => setShow(false)} title="Vote Contestant" >
                 <Vote userId={user.username} candidateInfo={candidateIfo} />
             </UIWindow>

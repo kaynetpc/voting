@@ -12,7 +12,8 @@ export interface IUserData {
     firstName: "",
     dateOfBirth: "",
     status: 0,
-    message: ""
+    message: "",
+    rolesId: number[]
 }
 const initialState: IReducersState = {
     title: "Login",
@@ -26,7 +27,8 @@ const initialState: IReducersState = {
         firstName: "",
         dateOfBirth: "",
         status: 0,
-        message: ""
+        message: "",
+        rolesId: []
     }
 }
 

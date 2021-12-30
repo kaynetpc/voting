@@ -1,6 +1,7 @@
 import { ReactElement, useState } from 'react';
 import './InputField.css';
 import {BsFillEyeFill, BsFillEyeSlashFill} from 'react-icons/bs';
+import TileSelect from '../tileSelect/TileSelect';
 
 
 interface Props {
@@ -15,11 +16,12 @@ interface Props {
   valueKey?: string;
   id?: any;
   readOnly?: boolean;
+  count?: number;
   onChange: (e: any) => void;
 }
 
 
-export const InputField = ({label, name, value, typeRender = "renderInput", id, placeholder, values, renderKey, valueKey, onChange, type, readOnly = false}: Props) => {
+export const InputField = ({label, name, value, typeRender = "renderInput", id, placeholder, values, renderKey, valueKey, onChange, type, readOnly = false, count = 0}: Props) => {
 
 
   const [typeV, setTypeV] = useState(type);
@@ -34,6 +36,12 @@ export const InputField = ({label, name, value, typeRender = "renderInput", id, 
     onChange && onChange(e)
     
     
+  }
+
+
+  const handleSelect = (res: any) => {    
+    setCurrentValue(res.name);
+    onChange && onChange(res)
   }
   
   const tInputField =  (
@@ -70,6 +78,15 @@ export const InputField = ({label, name, value, typeRender = "renderInput", id, 
           </div>
           ))}
           </div>
+    </div>
+  )
+
+  const tileSelect = (
+    <div className="input-field-radio-select">
+      <span className="input-label" >{label}</span>
+      <div className="input-field-tile-select-child-wrapper">
+        <TileSelect renderKey={renderKey} valueKey={valueKey} onSelect={handleSelect}  data={values}  name={name} count={values?.length || count}  />
+      </div>
     </div>
   )
 
@@ -117,6 +134,7 @@ export const InputField = ({label, name, value, typeRender = "renderInput", id, 
     case "renderInput": return tInputField;
     case "renderRadio": return tRadioSelect;
     case "renderSelect": return tSelect;
+    case "renderTileSelect": return tileSelect;
     default: return <></>
   }
 

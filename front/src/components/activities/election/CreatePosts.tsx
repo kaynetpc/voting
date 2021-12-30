@@ -24,7 +24,7 @@ export const CreatePosts = (props: Props) => {
         }
         getList();
 
-    }, [data])
+    }, [])
 
 
 
@@ -64,20 +64,12 @@ export const CreatePosts = (props: Props) => {
 
 
     const submit = (response : object) => {
-        console.log(response);
         const formData = [
             {
                 level: level,
                 posts: [response]
             }
         ];
-
-        console.log(response);
-        console.log(formData);
-
-        // const res = [
-
-        // ]
 
         KNT.validateField.validate([response], (field: string) => alert(MSG.fieldRequiredMSG(field)), () => {
             if(window.confirm(MSG.confirmMSG)){
@@ -87,7 +79,6 @@ export const CreatePosts = (props: Props) => {
 
     }
     const change = (e: any) => {
-        console.log(e.target.name, e.target.value);
         const {name, value} = e.target;
 
         if(name === "level"){

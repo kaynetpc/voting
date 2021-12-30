@@ -17,14 +17,14 @@
     border: none;
     height: inherit;
     border-bottom: 2px solid #8f206e7a;
-    background-color: #eb8fd01a;
+    background-color: var(--labelColor);
     border-radius: 4.5px;
     outline: none;
 }
 
 .input-field > span {
     width: 35%; 
-    background-color: #eb8fd01a;
+    background-color: var(--labelColor);
     line-height: auto;
     margin-right: 5px;
     margin-left: 5px;
@@ -60,7 +60,8 @@
 
 .input-field-radio-select > span {
     width: 35%; 
-    background-color: #eb8fd01a;
+    /* background-color: var(--labelColor); */
+    background-color: var(--labelColor);
     line-height: auto;
     margin-right: 5px;
     margin-left: 5px;
@@ -74,9 +75,20 @@
     height: inherit;
     justify-content: space-evenly;
     border-bottom: 2px solid #8f206e7a;
-    background-color: #eb8fd01a;
+    background-color: var(--labelColor);
     border-radius: 4.5px;
     padding-left: 5px;
+}
+
+.input-field-tile-select-child-wrapper {
+    width: 60%; 
+    border: none;
+    height: inherit;
+    /* border-bottom: 2px solid #8f206e7a; */
+    /* background-color: var(--labelColor); */
+    border-radius: 4.5px;
+    outline: none;
+
 }
 
 .input-field-radio-select-child:first-child{

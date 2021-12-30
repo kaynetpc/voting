@@ -35,7 +35,7 @@ public class ContestantService {
     Constant constant = new Constant();
 
     /**Add New Contestant */
-    public String addContestant(List<Contestants> entities) {
+    public String addContestant(List<ContestantsRequest> entities) {
         List<Contestants> process = new ArrayList<>();
         List<Description> desc = new ArrayList<>();
         List<User> users = repoUser.findAll();
@@ -43,10 +43,11 @@ public class ContestantService {
         List<Contestants> list = repoContestant.findAll();
         List<Posts> posts = repoPosts.findAll();
 
-        for(Contestants each : entities){
+        for(ContestantsRequest each : entities){
             /**Check id submission exist */
-            Optional<Contestants> isExist = checkContestant(list, each);
+            Optional<Contestants> isExist = checkContestantsRequest(list, each);
             if(!isExist.isPresent()){
+
                 List<Description> des = new ArrayList<>();
                 User user = getUserByUserId(users, each.getUserId()).get();
 
@@ -64,15 +65,16 @@ public class ContestantService {
                 each.setPost(post);
                 
                 each.setDescriptions(des);
-                process.add(each);
+
+                process.add(new Contestants(each));
             }
 
         }
 
         
         try {
-            repoContestant.saveAll(process);
             repoDescription.saveAll(desc);
+            repoContestant.saveAll(process);
             return MSG.saveMSG();
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,6 +100,8 @@ public class ContestantService {
         for(Election each : entities){
             if(!isElectionExist(list, each).isPresent()){
                 each.setDateCreated(help.getTodaysDate());
+                each.setActive(true);
+                each.setYear(help.getCurrentYear());
                 process.add(each);
             }
         }
@@ -114,6 +118,18 @@ public class ContestantService {
     }
 
 
+    public List<ElectionResponse> getElectionList(){
+        List<Election> list = repoElection.findAll();
+        List<Posts> posts = repoPosts.findAll();
+        List<ElectionResponse> res = new ArrayList<>();
+
+        for(Election each: list){
+            Posts post = getPostById(posts, each.getPostId()).get();
+            res.add(new ElectionResponse(each, post));
+        }
+
+        return res;
+    }
 
     Optional<Election> isElectionExist(List<Election> list, Election election ) {
         Optional<Election> res = Optional.empty();
@@ -127,10 +143,21 @@ public class ContestantService {
 
 
 
+    Optional<Contestants> checkContestantsRequest(List<Contestants> list, ContestantsRequest contestant ) {
+        Optional<Contestants> res = Optional.empty();
+        for(Contestants e : list){
+            if(e.getUserId().equalsIgnoreCase(contestant.getUserId()) && e.getPost().getId() == contestant.getPost().getId() && e.getLevel().equalsIgnoreCase(contestant.getLevel())){
+                return res = Optional.of(e);
+            }
+        }
+        return res;
+    }
+
+
     Optional<Contestants> checkContestant(List<Contestants> list, Contestants contestant ) {
         Optional<Contestants> res = Optional.empty();
         for(Contestants e : list){
-            if(e.getUserId().equalsIgnoreCase(contestant.getUserId()) && e.getPostId() == contestant.getPost().getId() && e.getLevel().equalsIgnoreCase(contestant.getLevel())){
+            if(e.getUserId().equalsIgnoreCase(contestant.getUserId()) && e.getPost().getId() == contestant.getPost().getId() && e.getLevel().equalsIgnoreCase(contestant.getLevel())){
                 return res = Optional.of(e);
             }
         }

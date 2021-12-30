@@ -15,6 +15,12 @@ public class Helper {
         return curDate;
     }
 
+    public String getCurrentYear(){
+        LocalDate now = LocalDate.now();
+        String currYear =  now.getYear()+"";
+        return currYear;
+    }
+
 
     
     /**
