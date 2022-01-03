@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.kaynetpc.voting.model.Role;
-import com.kaynetpc.voting.model.User;
 import com.kaynetpc.voting.model.UserRoles;
 import com.kaynetpc.voting.model.UserTypes;
 import com.kaynetpc.voting.role.dao.RepoRole;

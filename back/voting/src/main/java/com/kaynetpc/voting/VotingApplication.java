@@ -23,7 +23,7 @@ public class VotingApplication {
 		config.setAllowedMethods(Arrays.asList("*"));
 		config.setAllowedHeaders(Arrays.asList("*"));
 		config.setExposedHeaders(Arrays.asList("x-auth-token"));
-		config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001", "http://46.101.26.184:3030", "http://tawol-tech.com:3030"));
+		config.setAllowedOrigins(Arrays.asList("http://localhost:3000", "http://localhost:3001", "http://localhost", "http://localhost:87"));
 		source.registerCorsConfiguration("/**", config);
 		return new CorsFilter(source);
 	}

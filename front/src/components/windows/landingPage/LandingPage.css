@@ -84,3 +84,33 @@ background-color:  #fdfefe; */
     bottom: 0;
     border-radius: 5px;
 }
+
+
+.powered-div {
+    display: block;
+    position: absolute;
+    right: 0;
+    margin-right: 40px;
+    margin-bottom: 45px;
+    font-size: 12px;
+    bottom: 0;
+    opacity: .99;
+    color: white;
+    padding: 10px 20px;
+    background-color: var(--mainColorB);
+    border: 2px solid var(--mainColor);
+    border-radius: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold;
+    transition: ease-in-out 1s;
+}
+.powered-div:hover {
+    opacity: 2;
+    transition: ease-in-out 1s;
+    /* color: white;
+    background-color: var(--mainColorB);
+    border: 2px solid var(--mainColor);
+    border-radius: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: bold; */
+}

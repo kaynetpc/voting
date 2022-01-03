@@ -4,7 +4,7 @@ import { connect, useDispatch } from 'react-redux';
 import { KNT } from '../../../dependencies/js/knt';
 import { Switcher } from '../../../dependencies/switcher/Switcher';
 import { Logout } from '../../core/auth/Logout';
-import { basic } from '../../core/configuration/config';
+import { basic, basicJSX } from '../../core/configuration/config';
 import { adminBasic, userBasicRoles } from '../../service/Constant';
 // import { UserData } from '../../service/Constant.tsx';
 import { IReducersState, mapStateToProp } from '../../service/Reducers';
@@ -77,8 +77,10 @@ const SkinPage = ({userData, page}: Props) => {
             </div>            
             <div className="skin-contents">
                 <Switcher onChange={(re) => {setHeader(re); setView(re)}}  subLinks={subLi} />
-            </div>            
-            <div className="skin-footer"><i>(c) kaynetpc 2021</i></div>           
+            </div>     
+            {basicJSX.poweredBy}
+            {basicJSX.footer}       
+            {/* <div className="skin-footer"><i>(c) kaynetpc 2021</i></div>            */}
         </div>       
         </div>
     )

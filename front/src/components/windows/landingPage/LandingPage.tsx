@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react'
 import { FiUser } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { KNT } from '../../../dependencies/js/knt';
-import { basic } from '../../core/configuration/config';
+import { basic, basicJSX } from '../../core/configuration/config';
 import { UserData } from '../../service/Constant';
 import { IReducersState } from '../../service/Reducers';
 
@@ -36,8 +36,9 @@ export const LandingPage = (props: Props) => {
             </div>            
             <div className="contents">
                 {props.page}
-            </div>            
-            <div className="footer"><i>(c) {basic.company} 2021 in collaboration with <small> {basic.developer}</small> </i></div>           
+            </div>
+            {basicJSX.poweredBy}         
+            {basicJSX.footer}          
         </div>
     )
 }
