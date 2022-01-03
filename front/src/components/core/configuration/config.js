@@ -19,6 +19,6 @@ export const basic = {
 }
 
 export const basicJSX = {
-    footer:  <div className="footer"><i>(c) 2021. All Right Reserved  {KNT.string.titleCase(basic.company)} <small> {basic.developer}</small> </i></div> ,
+    footer:  <div className="footer"><i>(c) 2021. All Right Reserved.  {KNT.string.titleCase(basic.company)} <small> {basic.developer}</small> </i></div> ,
     poweredBy: <div className='powered-div'>Powered By JPC Web Stack</div> 
 }
