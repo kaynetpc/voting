@@ -37,6 +37,7 @@ const SkinPage = ({userData, page}: Props) => {
         
     // if(username === null || username === undefined){navigate("/")}
     const rolesIds = () => {
+        console.log(userData.username, adminBasic);
         if(userData.username === adminBasic.username){
             return adminBasic.roles;
         } else if(userData.rolesId.length > 0 && userData.rolesId !== undefined && userData !== null){

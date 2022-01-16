@@ -29,22 +29,26 @@ export const Switcher = ({subLinks = [{name: "", value: <></>}], onChange, onPag
         } 
     }, [subLinks])
 
-    // useEffect(() => {
-    //     // alert("h")
-    //     const action = () => {
-    //         const keys = KNT.array.getValuesArrayByKey(subLink, "name");
-    //         if(keys.includes(onPageChange) && current !== onPageChange){
-    //             onPageChange && setCurrent(onPageChange);
-    //         }
-    //     }
-    //     action();
-    // }, [current])
+
+    /**
+    useEffect(() => {
+        // alert("h")
+        const action = () => {
+            const keys = KNT.array.getValuesArrayByKey(subLink, "name");
+            if(keys.includes(onPageChange) && current !== onPageChange){
+                onPageChange && setCurrent(onPageChange);
+            }
+        }
+        action();
+    }, [current])
+
+     **/
 
 
 
     const currentView = (currentView: string) => {
         if(current !== undefined){
-            const res = subLink.length > 0 && KNT.array.extractByKeyValue(subLink, "name", currentView)[0].value as ReactElement;
+            const res = (subLink.length > 0) && (KNT.array.extractByKeyValue(subLink, "name", currentView)[0] && KNT.array.extractByKeyValue(subLink, "name", currentView)[0]["value"]) as ReactElement;
             onChange && onChange(current)
             return res;
         } else return <div>ERROR {currentView}</div>

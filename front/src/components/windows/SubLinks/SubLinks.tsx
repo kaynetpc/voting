@@ -22,7 +22,14 @@ const SubLinks = [
     {id: 9, name: "Roles List", value: <CreateRole />},
     {id: 10, name: "Role Assign", value: <AssignRole />},
     {id: 11, name: "All User", value: <User />},
-    {id: 13, name: "No role Found", value: <div className="container">No role yet</div>},
+    {id: 13, name: "No role Found", value: 
+    <div className="container" style={{display: "flex", justifyContent: 'center', alignItems: "center", height: "100vh"}}>
+        No role yet
+        <br/>
+        <br/>
+        <i>or try login-out and login again! </i>
+    </div>
+    },
 ];
 export default SubLinks;
 
