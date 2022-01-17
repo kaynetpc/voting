@@ -56,7 +56,7 @@ function AssignRole() {
                 type: "tileSelect",
                 renderKey: "name",
                 valueKey: "id",
-                label: "Election",
+                label: "Roles",
             }
         }
     ]

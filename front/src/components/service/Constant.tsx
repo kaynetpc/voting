@@ -11,7 +11,7 @@ import SubLinks from "../windows/SubLinks/SubLinks";
 import { adminData } from "./ConstantData";
 import { IReducersState } from "./Reducers";
 
-export const baseUrl = "http://localhost:83";
+export const baseUrl = "http://localhost:8080";
 // export const baseUrl = "http://localhost:99";
 
 export const connectionStatus = { connected: 1, blocked:  2, incorrect : 3, failed : 4, not_exist:  0 };

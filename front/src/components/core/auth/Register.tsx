@@ -14,9 +14,10 @@ import { Form } from '../../../dependencies/form/Form';
 
 interface Props {
     onSwitch?: (re: string) => void;
+    inApp: boolean;
 }
 
-export const Register = ({ onSwitch }: Props) => {
+export const Register = ({ onSwitch, inApp }: Props) => {
 
     const [state, setState] = useState({});
     const [userTypes, setUserTypes] = useState([]);
@@ -155,7 +156,7 @@ export const Register = ({ onSwitch }: Props) => {
             if (window.confirm(MSG.confirmMSG)) {
                 JHttp.post(`${baseUrl}/user/reg`, data, (response: any | string) => {
 
-                    handleStatusConnection(response);
+                     handleStatusConnection(response);
 
                 }, (err: any) => console.log(err));
             }
@@ -169,14 +170,16 @@ export const Register = ({ onSwitch }: Props) => {
             const status = response.status | 0;
             console.log(status);
             if(status === connectionStatus.connected){
-                alert("connected")
+                if(!inApp){
+                    alert("connected")
+                    dispatcher({type: "setUserData", data: response})
+                    
+                    sessionStorage.setItem("username", response.username);
+                    sessionStorage.setItem("user_basic_data", JSON.stringify(response));
+                    
+                    navigate('/app');
+                } else  alert("Saved!");
 
-                dispatcher({type: "setUserData", data: response})
-
-                sessionStorage.setItem("username", response.username);
-                sessionStorage.setItem("user_basic_data", JSON.stringify(response));
-
-                navigate('/app')
             } else
             if(status === connectionStatus.blocked){
                 console.log(response.message);
@@ -198,7 +201,7 @@ export const Register = ({ onSwitch }: Props) => {
         return (
             <div className="login-reg-btn-wrapper">
                 <Button icon={<TiArrowRightOutline />} label="REGISTER" onClick={() => handleRegisterNow(data)} />
-                <span onClick={switchLogin} className="clickable-btn-span" >Already Have a login?</span>
+                {!inApp && <span onClick={switchLogin} className="clickable-btn-span" >Already Have a login?</span>}
             </div>
         )
     }
@@ -208,14 +211,6 @@ export const Register = ({ onSwitch }: Props) => {
         <div className="reg-frame">
             <div>
                 <div className="reg-login-title">Create An Account</div>
-                {
-                    // schema.map((x, i) => (
-                    //     x.type === "select" ?
-                    //         <InputField typeRender="renderRadio" type={x.type} values={x.values} name={x.name} label={x.control.label} placeholder={x.control.placeholder} onChange={handleChange} />
-                    //         :
-                    //         <InputField name={x.name} label={x.control.label} type={x.type} placeholder={x.control.placeholder} onChange={handleChange} />
-                    // ))
-                }
                 <Form schema={schema} onSubmit={handleRegister} label="Submit Request" userButton={(e) => submitButtonRender(e)}  onChange={handleChange} />        
             </div>
         </div>

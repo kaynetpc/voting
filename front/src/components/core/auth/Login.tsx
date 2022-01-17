@@ -125,7 +125,7 @@ export const Login = ({currentTitle}: Props) => {
                         </div>
                 </div>
                 : 
-                <Register onSwitch={(re) => switchReg(re)}  />
+                <Register inApp={false} onSwitch={(re) => switchReg(re)}  />
         }
          </div>
     )

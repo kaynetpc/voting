@@ -7,7 +7,9 @@ import CreatElection from "../../activities/election/CreatElection";
 import VotingList from "../../activities/election/vote/VotingList";
 import CreateRole from "../../admin/CreateRole";
 import AssignRole from "../../admin/AssignRole";
-import { User } from '../../user/User';
+import { AddUserType, User } from '../../user/User';
+import { TabPane } from "../../../dependencies/tabPane/TabPane";
+import { Register } from "../../core/auth/Register";
 
 
 const SubLinks = [
@@ -20,7 +22,7 @@ const SubLinks = [
     {id: 7, name: "Election List", value: <CreatElection />},
     {id: 8, name: "Voting List", value: <VotingList />},
     {id: 9, name: "Roles List", value: <CreateRole />},
-    {id: 10, name: "Role Assign", value: <AssignRole />},
+    {id: 10, name: "Role Assign", value: <TabPane pane={[ <AssignRole />, <AddUserType/>, <Register inApp={true} />]} tab={["Assign Role", "Add User Type", "Add new User"]} />},
     {id: 11, name: "All User", value: <User />},
     {id: 13, name: "No role Found", value: 
     <div className="container" style={{display: "flex", justifyContent: 'center', alignItems: "center", height: "100vh"}}>
